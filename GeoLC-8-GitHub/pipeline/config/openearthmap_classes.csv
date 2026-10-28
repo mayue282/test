@@ -1,0 +1,10 @@
+class_id,class_name,r,g,b
+0,Background,0,0,0
+1,Bareland,128,0,0
+2,Grass,0,255,36
+3,Pavement,148,148,148
+4,Road,255,255,255
+5,Tree,34,97,38
+6,Water,0,69,255
+7,Cropland,75,181,73
+8,Building,222,31,7

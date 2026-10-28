@@ -1,0 +1,90 @@
+protocol_version: 2
+
+training:
+  epochs: 15
+  seeds: [42]
+  runs_per_method: 1
+  ablation_experiments: false
+  input_size: 256
+  batch_size: 8
+  optimizer: adamw
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  scheduler: cosine
+  supervised_loss: inverse_sqrt_frequency_weighted_cross_entropy_plus_dice
+  hardware: apple_m3_max_mps
+
+implementation:
+  exact_pretrained_models:
+    - unet_resnet50_imagenet_encoder
+    - segformer_b2_ade20k
+    - dinov2_b14_encoder
+  mps_compatible_ports:
+    - rs3mamba
+    - daformer
+    - mic
+    - mrm
+    - rein
+    - crossearth
+    - depthforge
+  note: >-
+    MPS-compatible ports retain each method's defining public objective or
+    module but are not bit-identical CUDA/mmseg reproductions.
+
+segmentation:
+  split_scope: within_each_region
+  split_strategy: random_patch
+  train_fraction: 0.60
+  validation_fraction: 0.10
+  test_fraction: 0.30
+  random_seed: 42
+  models:
+    - unet_resnet50
+    - segformer_b2
+    - rs3mamba
+    - dinov2_b14_mask2former
+
+domain_partition:
+  rule: five_smallest_regions_are_target_and_unseen
+  source_regions:
+    - Myanmar_Mandalay
+    - PapuaNewGuinea_Lagaip
+    - Afghanistan_Kama
+    - UnitedStates_LosAngeles
+    - Indonesia_Cilacap
+    - Indonesia_BoneBolango
+    - Indonesia_Kudus
+  target_unseen_regions:
+    - Indonesia_Soko
+    - Thailand_DoiLang
+    - Pakistan_Chamla
+    - Libya_Zawiya
+    - Indonesia_Agam
+
+domain_adaptation:
+  runs_per_method: 1
+  target_rgb_available: true
+  target_labels_during_training: false
+  methods:
+    - daformer
+    - mic
+    - mrm
+
+domain_generalization:
+  runs_per_method: 1
+  unseen_rgb_during_training: false
+  unseen_labels_during_training: false
+  methods:
+    - rein
+    - crossearth
+    - depthforge
+
+reporting:
+  metrics:
+    - per_class_iou
+    - miou
+    - mean_f1
+    - overall_accuracy
+    - boundary_f1
+  report_standard_deviation: false
+  claim_statistical_significance: false

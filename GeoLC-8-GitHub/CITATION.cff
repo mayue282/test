@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use GeoLC-8, please cite the accompanying manuscript and OpenEarthMap."
+title: "GeoLC-8: Cross-Domain Land-Cover Mapping with Challenging Disaster-Response Imagery"
+type: software
+authors:
+  - family-names: Zhang
+    given-names: Lianchong
+    email: zhanglc@aircas.ac.cn
+    affiliation: Aerospace Information Research Institute, Chinese Academy of Sciences
+  - family-names: Zhong
+    given-names: Xing
+    affiliation: ChangGuang Satellite Technology Ltd.
+  - family-names: Li
+    given-names: Guoqing
+    affiliation: Aerospace Information Research Institute, Chinese Academy of Sciences
+version: 1.0.0
+date-released: 2026-10-24
+
